@@ -4,6 +4,10 @@ export type InterviewTrack = 'technical' | 'hr';
 
 export type PracticeMode = 'voice' | 'typed';
 
+export type DifficultyLevel = 'foundation' | 'pressure-cooker' | 'executive';
+
+export type ScreenView = 'entry' | 'setup' | 'room';
+
 export type MicStatus =
   | 'idle'
   | 'requesting'
@@ -20,4 +24,20 @@ export interface InterviewTrackInfo {
   tagline: string;
   description: string;
   focusAreas: string[];
+}
+
+export interface DifficultyOption {
+  id: DifficultyLevel;
+  title: string;
+  badge: string;
+  description: string;
+  recommendation?: string;
+}
+
+export interface InterviewConfig {
+  track: InterviewTrack;
+  difficulty: DifficultyLevel;
+  topic: string;
+  customTopic: string;
+  mode: PracticeMode;
 }
