@@ -37,22 +37,22 @@ export const InterviewCard: React.FC<InterviewCardProps> = ({
           onSelect(id);
         }
       }}
-      className={`group relative text-left p-6 sm:p-7 rounded-xl transition-all duration-200 cursor-pointer border ${
+      className={`group relative text-left p-6 sm:p-7 rounded-2xl transition-all duration-200 cursor-pointer ${
         isSelected
-          ? 'bg-[#1B201D] border-[#B8FF62] shadow-[0_0_0_1px_#B8FF62]'
-          : 'bg-[#1B201D]/70 hover:bg-[#1B201D] border-[#28302B] hover:border-[#3A473F]'
-      } focus:outline-none focus:ring-2 focus:ring-[#B8FF62] focus:ring-offset-2 focus:ring-offset-[#101211]`}
+          ? 'chrome-panel-active'
+          : 'chrome-panel chrome-panel-hover'
+      } focus:outline-none focus:ring-2 focus:ring-[#B8FF62] focus:ring-offset-2 focus:ring-offset-[#0B0D0C]`}
     >
       {/* Top Metadata Row: Code & Selection Indicator */}
       <div className="flex items-center justify-between mb-4">
-        <span className="font-mono text-xs tracking-widest text-[#929991] uppercase">
+        <span className="font-mono text-xs tracking-widest text-[#8A9389] uppercase">
           {code}
         </span>
         <div
           className={`w-6 h-6 rounded-full flex items-center justify-center border transition-all ${
             isSelected
-              ? 'bg-[#B8FF62] border-[#B8FF62] text-[#101211]'
-              : 'border-[#28302B] text-transparent group-hover:border-[#3A473F]'
+              ? 'bg-[#B8FF62] border-[#B8FF62] text-[#0B0D0C] shadow-[0_0_10px_rgba(184,255,98,0.4)]'
+              : 'border-white/10 text-transparent group-hover:border-white/20'
           }`}
           aria-hidden="true"
         >
@@ -61,12 +61,12 @@ export const InterviewCard: React.FC<InterviewCardProps> = ({
       </div>
 
       {/* Track Icon & Title */}
-      <div className="flex items-center gap-3 mb-2">
+      <div className="flex items-center gap-3.5 mb-2.5">
         <div
-          className={`p-2 rounded-lg border transition-colors ${
+          className={`p-2.5 rounded-xl border transition-colors ${
             isSelected
               ? 'bg-[#B8FF62]/10 border-[#B8FF62]/40 text-[#B8FF62]'
-              : 'bg-[#101211] border-[#28302B] text-[#929991] group-hover:text-[#E8EAE5]'
+              : 'bg-[#0B0D0C] border-white/10 text-[#8A9389] group-hover:text-[#E8EAE5]'
           }`}
         >
           <Icon className="w-5 h-5" />
@@ -82,16 +82,16 @@ export const InterviewCard: React.FC<InterviewCardProps> = ({
       </p>
 
       {/* Description */}
-      <p className="text-sm text-[#929991] leading-relaxed mb-5">
+      <p className="text-sm text-[#8A9389] leading-relaxed mb-5">
         {description}
       </p>
 
       {/* Focus Area Tags */}
-      <div className="flex flex-wrap gap-1.5 pt-3 border-t border-[#28302B]/60">
+      <div className="flex flex-wrap gap-1.5 pt-3.5 border-t border-white/[0.06]">
         {focusAreas.map((area, i) => (
           <span
             key={i}
-            className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#101211] border border-[#28302B] text-[#929991]"
+            className="text-[11px] font-mono px-2.5 py-1 rounded-md chrome-badge text-[#8A9389]"
           >
             {area}
           </span>

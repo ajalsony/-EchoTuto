@@ -1,15 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian: #101211;
-  --color-carbon: #1B201D;
-  --color-carbon-light: #232A26;
-  --color-carbon-border: #28302B;
-  --color-carbon-border-hover: #3A473F;
+  --color-obsidian: #0B0D0C;
+  --color-graphite: #121514;
+  --color-carbon: #171B19;
+  --color-carbon-light: #1F2422;
+  --color-carbon-border: #262E29;
+  --color-carbon-border-hover: #3C4740;
+  --color-chrome-border: rgba(220, 228, 238, 0.14);
+  --color-chrome-border-glow: rgba(220, 228, 238, 0.28);
   --color-signal-lime: #B8FF62;
-  --color-signal-lime-dim: #9CE646;
+  --color-signal-lime-dim: #9DE644;
+  --color-signal-lime-glow: rgba(184, 255, 98, 0.22);
   --color-soft-chalk: #E8EAE5;
-  --color-muted-ash: #929991;
+  --color-muted-ash: #8A9389;
   --color-alert-coral: #FF8277;
 
   --font-space: "Space Grotesk", sans-serif;
@@ -25,20 +29,50 @@ html {
   color-scheme: dark;
 }
 
+/* 21st.dev inspired dark studio metallic surface utilities */
+.chrome-panel {
+  background: linear-gradient(180deg, #181C1A 0%, #121514 100%);
+  border: 1px solid rgba(220, 228, 238, 0.12);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+}
+
+.chrome-panel-hover:hover {
+  border-color: rgba(220, 228, 238, 0.24);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14), 0 12px 28px -4px rgba(0, 0, 0, 0.6);
+}
+
+.chrome-panel-active {
+  background: linear-gradient(180deg, #1C221E 0%, #141816 100%);
+  border: 1px solid #B8FF62;
+  box-shadow: inset 0 1px 0 0 rgba(184, 255, 98, 0.25), 0 0 16px -2px rgba(184, 255, 98, 0.18);
+}
+
+.chrome-badge {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.chrome-text-gradient {
+  background: linear-gradient(135deg, #FFFFFF 0%, #E8EAE5 40%, #A6B4C2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Subtle custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #101211;
+  background: #0B0D0C;
 }
 ::-webkit-scrollbar-thumb {
-  background: #28302B;
+  background: #252D28;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3A473F;
+  background: #3C4740;
 }
 
 /* Echo Rings Animations */
@@ -51,7 +85,7 @@ html {
   }
   50% {
     transform: scale(1.035);
-    opacity: 0.65;
+    opacity: 0.7;
   }
 }
 
@@ -59,11 +93,11 @@ html {
 @keyframes ring-pulse-outward {
   0% {
     transform: scale(0.92);
-    opacity: 0.8;
+    opacity: 0.85;
   }
   50% {
     transform: scale(1.08);
-    opacity: 0.4;
+    opacity: 0.45;
   }
   100% {
     transform: scale(1.18);
@@ -114,7 +148,7 @@ html {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.25);
   }
 }
 
