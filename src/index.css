@@ -1,83 +1,174 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian: #0B0D0C;
-  --color-graphite: #121514;
-  --color-carbon: #171B19;
-  --color-carbon-light: #1F2422;
-  --color-carbon-border: #262E29;
-  --color-carbon-border-hover: #3C4740;
-  --color-chrome-border: rgba(220, 228, 238, 0.14);
-  --color-chrome-border-glow: rgba(220, 228, 238, 0.28);
-  --color-signal-lime: #B8FF62;
-  --color-signal-lime-dim: #9DE644;
-  --color-signal-lime-glow: rgba(184, 255, 98, 0.22);
-  --color-soft-chalk: #E8EAE5;
-  --color-muted-ash: #8A9389;
-  --color-alert-coral: #FF8277;
+  --color-charcoal: #0A0B0D;
+  --color-charcoal-deep: #060708;
+  --color-surface: #14181B;
+  --color-surface-elevated: #1B2025;
+  --color-surface-input: #0F1215;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-subtle: rgba(255, 255, 255, 0.04);
+  --color-border-hover: rgba(0, 240, 255, 0.4);
+  --color-cyan: #00F0FF;
+  --color-cyan-dim: #00C4D6;
+  --color-cyan-glow: rgba(0, 240, 255, 0.25);
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #9EA6B0;
+  --color-text-dim: #606873;
+  --color-alert-red: #FF4D6D;
+  --color-status-green: #7AE582;
 
-  --font-space: "Space Grotesk", sans-serif;
+  --font-anton: "Anton", sans-serif;
+  --font-inria: "Inria Sans", sans-serif;
   --font-inter: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 }
 
 /* Base resets & typography */
 html {
-  font-family: var(--font-inter);
-  background-color: var(--color-obsidian);
-  color: var(--color-soft-chalk);
+  font-family: var(--font-inria), var(--font-inter), sans-serif;
+  background-color: #0A0B0D;
+  color: #FFFFFF;
   color-scheme: dark;
 }
 
-/* 21st.dev inspired dark studio metallic surface utilities */
-.chrome-panel {
-  background: linear-gradient(180deg, #181C1A 0%, #121514 100%);
-  border: 1px solid rgba(220, 228, 238, 0.12);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+body {
+  background-color: #0A0B0D;
+  color: #FFFFFF;
 }
 
-.chrome-panel-hover:hover {
-  border-color: rgba(220, 228, 238, 0.24);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14), 0 12px 28px -4px rgba(0, 0, 0, 0.6);
+/* Technical Hairline Grid */
+.daemon-grid-bg {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
-.chrome-panel-active {
-  background: linear-gradient(180deg, #1C221E 0%, #141816 100%);
-  border: 1px solid #B8FF62;
-  box-shadow: inset 0 1px 0 0 rgba(184, 255, 98, 0.25), 0 0 16px -2px rgba(184, 255, 98, 0.18);
+.daemon-grid-fine {
+  background-size: 24px 24px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
 }
 
-.chrome-badge {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+/* Daemon Precision Surface Utilities */
+.daemon-card {
+  background-color: #14181B;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04), 0 12px 32px -4px rgba(0, 0, 0, 0.6);
 }
 
-.chrome-text-gradient {
-  background: linear-gradient(135deg, #FFFFFF 0%, #E8EAE5 40%, #A6B4C2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.daemon-card-hover {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.daemon-card-hover:hover {
+  border-color: rgba(0, 240, 255, 0.35);
+  box-shadow: inset 0 1px 0 0 rgba(0, 240, 255, 0.12), 0 16px 40px -6px rgba(0, 0, 0, 0.7), 0 0 20px -4px rgba(0, 240, 255, 0.12);
+}
+
+.daemon-card-active {
+  background-color: #14181B;
+  border: 1px solid #00F0FF;
+  box-shadow: inset 0 1px 0 0 rgba(0, 240, 255, 0.3), 0 0 24px -2px rgba(0, 240, 255, 0.25);
+}
+
+.daemon-chip {
+  background-color: rgba(20, 24, 27, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #9EA6B0;
+}
+
+.daemon-chip-active {
+  background-color: #00F0FF;
+  border-color: #00F0FF;
+  color: #0A0B0D;
+  font-weight: 700;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.35);
+}
+
+.daemon-badge {
+  background-color: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  color: #00F0FF;
+}
+
+/* Precision Crosshairs (Corner '+' markers) */
+.daemon-crosshair-tl {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+  user-select: none;
+}
+
+.daemon-crosshair-tr {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+  user-select: none;
+}
+
+.daemon-crosshair-bl {
+  position: absolute;
+  bottom: -5px;
+  left: -5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+  user-select: none;
+}
+
+.daemon-crosshair-br {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Spectral Hairline Gradient Bar */
+.daemon-spectral-hairline {
+  background: linear-gradient(90deg, #FF7A00 0%, #00F0FF 50%, #FF0055 100%);
+  height: 2px;
+  width: 100%;
 }
 
 /* Subtle custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B0D0C;
+  background: #0A0B0D;
 }
 ::-webkit-scrollbar-thumb {
-  background: #252D28;
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3C4740;
+  background: #00F0FF;
 }
 
-/* Echo Rings Animations */
+/* Acoustic Ring Animations */
 
-/* 1. Idle: Gentle, rhythmic respiration */
+/* 1. Idle: Calm, precision respiration */
 @keyframes ring-breathe {
   0%, 100% {
     transform: scale(1);
@@ -85,7 +176,7 @@ html {
   }
   50% {
     transform: scale(1.035);
-    opacity: 0.7;
+    opacity: 0.75;
   }
 }
 
@@ -93,7 +184,7 @@ html {
 @keyframes ring-pulse-outward {
   0% {
     transform: scale(0.92);
-    opacity: 0.85;
+    opacity: 0.9;
   }
   50% {
     transform: scale(1.08);
@@ -119,7 +210,7 @@ html {
   66% { transform: scale(1.07); }
 }
 
-/* 4. Processing: Restrained radar rotation & rhythmic cadence */
+/* 4. Processing: Restrained radar rotation */
 @keyframes ring-spin-slow {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -152,7 +243,6 @@ html {
   }
 }
 
-/* Animation utility classes with transform-origin centered */
 .echo-ring {
   transform-origin: center;
   vector-effect: non-scaling-stroke;
