@@ -37,61 +37,65 @@ export const InterviewCard: React.FC<InterviewCardProps> = ({
           onSelect(id);
         }
       }}
-      className={`group relative text-left p-6 sm:p-7 rounded-2xl transition-all duration-200 cursor-pointer ${
-        isSelected
-          ? 'chrome-panel-active'
-          : 'chrome-panel chrome-panel-hover'
-      } focus:outline-none focus:ring-2 focus:ring-[#B8FF62] focus:ring-offset-2 focus:ring-offset-[#0B0D0C]`}
+      className={`group relative text-left p-6 sm:p-8 rounded-xl transition-all duration-200 cursor-pointer ${
+        isSelected ? 'daemon-card-active' : 'daemon-card daemon-card-hover'
+      } focus:outline-none focus:ring-2 focus:ring-[#00F0FF] focus:ring-offset-2 focus:ring-offset-[#0A0B0D]`}
     >
-      {/* Top Metadata Row: Code & Selection Indicator */}
-      <div className="flex items-center justify-between mb-4">
-        <span className="font-mono text-xs tracking-widest text-[#8A9389] uppercase">
+      {/* Precision Corner Crosshairs */}
+      <span className="daemon-crosshair-tl" aria-hidden="true">+</span>
+      <span className="daemon-crosshair-tr" aria-hidden="true">+</span>
+      <span className="daemon-crosshair-bl" aria-hidden="true">+</span>
+      <span className="daemon-crosshair-br" aria-hidden="true">+</span>
+
+      {/* Top Metadata Row: Track Code & Selection Checkmark */}
+      <div className="flex items-center justify-between mb-5">
+        <span className="font-mono text-xs tracking-widest text-[#9EA6B0] uppercase font-bold">
           {code}
         </span>
         <div
-          className={`w-6 h-6 rounded-full flex items-center justify-center border transition-all ${
+          className={`w-6 h-6 rounded-md flex items-center justify-center border transition-all ${
             isSelected
-              ? 'bg-[#B8FF62] border-[#B8FF62] text-[#0B0D0C] shadow-[0_0_10px_rgba(184,255,98,0.4)]'
-              : 'border-white/10 text-transparent group-hover:border-white/20'
+              ? 'bg-[#00F0FF] border-[#00F0FF] text-[#0A0B0D] shadow-[0_0_10px_rgba(0,240,255,0.4)]'
+              : 'border-white/[0.12] text-transparent group-hover:border-white/[0.3]'
           }`}
           aria-hidden="true"
         >
-          <Check className={`w-3.5 h-3.5 stroke-[2.5] ${isSelected ? 'opacity-100' : 'opacity-0'}`} />
+          <Check className={`w-3.5 h-3.5 stroke-[3] ${isSelected ? 'opacity-100' : 'opacity-0'}`} />
         </div>
       </div>
 
-      {/* Track Icon & Title */}
+      {/* Track Icon & Anton Display Title */}
       <div className="flex items-center gap-3.5 mb-2.5">
         <div
-          className={`p-2.5 rounded-xl border transition-colors ${
+          className={`p-2.5 rounded-lg border transition-colors ${
             isSelected
-              ? 'bg-[#B8FF62]/10 border-[#B8FF62]/40 text-[#B8FF62]'
-              : 'bg-[#0B0D0C] border-white/10 text-[#8A9389] group-hover:text-[#E8EAE5]'
+              ? 'bg-[#00F0FF]/15 border-[#00F0FF]/40 text-[#00F0FF]'
+              : 'bg-[#0A0B0D] border-white/[0.1] text-[#9EA6B0] group-hover:text-[#FFFFFF]'
           }`}
         >
           <Icon className="w-5 h-5" />
         </div>
-        <h3 className="font-space font-bold text-xl sm:text-2xl text-[#E8EAE5]">
+        <h3 className="font-anton text-2xl sm:text-3xl tracking-wide uppercase text-[#FFFFFF]">
           {title}
         </h3>
       </div>
 
-      {/* Editorial Tagline */}
-      <p className="font-mono text-xs text-[#B8FF62] tracking-wide mb-3">
+      {/* Tactical Tagline */}
+      <p className="font-mono text-xs text-[#00F0FF] tracking-wide mb-3 uppercase">
         “{tagline}”
       </p>
 
       {/* Description */}
-      <p className="text-sm text-[#8A9389] leading-relaxed mb-5">
+      <p className="text-sm text-[#9EA6B0] leading-relaxed mb-6 font-inria">
         {description}
       </p>
 
       {/* Focus Area Tags */}
-      <div className="flex flex-wrap gap-1.5 pt-3.5 border-t border-white/[0.06]">
+      <div className="flex flex-wrap gap-2 pt-4 border-t border-white/[0.08]">
         {focusAreas.map((area, i) => (
           <span
             key={i}
-            className="text-[11px] font-mono px-2.5 py-1 rounded-md chrome-badge text-[#8A9389]"
+            className="text-[11px] font-mono px-2.5 py-1 rounded-md daemon-chip tracking-wide uppercase"
           >
             {area}
           </span>
