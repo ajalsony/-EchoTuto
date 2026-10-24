@@ -256,58 +256,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Sign in using email OR username
+  // Sign in using native Supabase email authentication (enumeration-safe)
   const signIn = async (identifier: string, password: string): Promise<{ error: Error | null }> => {
     if (!supabase || !isSupabaseConfigured) {
       return { error: notConfiguredError };
     }
 
     try {
-      const trimmed = identifier.trim();
-      let emailToAuth = trimmed;
+      const email = identifier.trim().toLowerCase();
 
-      // If identifier does not have an '@', resolve username to email
-      if (!trimmed.includes('@')) {
-        const username = trimmed.toLowerCase();
-        
-        try {
-          // Call secure RPC
-          const { data: resolvedEmail, error: rpcErr } = await supabase.rpc('get_email_by_username', {
-            p_username: username,
-          });
-
-          if (rpcErr) {
-            // Function not deployed yet in Supabase SQL editor
-            return {
-              error: new Error(
-                `Username login requires database configuration. Please sign in with your email address or run the setup in supabase_schema.sql.`
-              ),
-            };
-          }
-
-          if (!resolvedEmail) {
-            return {
-              error: new Error(`No account found matching username "${trimmed}". Please check your username or sign in with your email.`),
-            };
-          }
-
-          emailToAuth = resolvedEmail;
-        } catch {
-          return {
-            error: new Error(
-              `Username login requires database configuration. Please sign in with your email address or run the setup in supabase_schema.sql.`
-            ),
-          };
-        }
+      // Enforce email format to protect against enumeration attacks
+      if (!email.includes('@')) {
+        return {
+          error: new Error(
+            'EchoTutor uses secure email authentication to protect candidate privacy. Please sign in with your registered email address (e.g. candidate@example.com).'
+          ),
+        };
       }
 
       const { error } = await supabase.auth.signInWithPassword({
-        email: emailToAuth,
+        email,
         password,
       });
 
       if (error) {
-        return { error: new Error(error.message) };
+        return { error: new Error(formatAuthError(error)) };
       }
 
       return { error: null };

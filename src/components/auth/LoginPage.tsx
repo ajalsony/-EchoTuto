@@ -1,39 +1,66 @@
-import React, { useState } from 'react';
-import { Eye, EyeOff, Lock, User, ArrowRight, AlertCircle, Loader2, ShieldCheck, Box } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Eye, EyeOff, Lock, User, ArrowRight, ArrowLeft, AlertCircle, Loader2, ShieldCheck, Box } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 interface LoginPageProps {
+  initialEmail?: string;
   onNavigateRegister: () => void;
   onNavigateForgotPassword: () => void;
+  onNavigateLanding?: () => void;
   onSuccess: () => void;
   onNavigateVerifyEmail?: (email?: string) => void;
 }
 
 export const LoginPage: React.FC<LoginPageProps> = ({
+  initialEmail = '',
   onNavigateRegister,
   onNavigateForgotPassword,
+  onNavigateLanding,
   onSuccess,
   onNavigateVerifyEmail,
 }) => {
   const { signIn, isConfigured } = useAuth();
 
-  const [identifier, setIdentifier] = useState('');
+  const [identifier, setIdentifier] = useState(() => {
+    return initialEmail || (() => {
+      try {
+        return localStorage.getItem('echotutor_remembered_email') || '';
+      } catch {
+        return '';
+      }
+    })();
+  });
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(true);
+  const [rememberMe, setRememberMe] = useState(() => {
+    try {
+      return localStorage.getItem('echotutor_remember_me') !== 'false';
+    } catch {
+      return true;
+    }
+  });
 
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Sync initialEmail when prop updates (e.g. redirected from registration)
+  useEffect(() => {
+    if (initialEmail) {
+      setIdentifier(initialEmail);
+    }
+  }, [initialEmail]);
+
   const validate = (): string | null => {
     const trimmed = identifier.trim();
-    if (!trimmed) return 'Email address or username is required.';
+    if (!trimmed) return 'Email address is required.';
 
-    if (trimmed.includes('@')) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(trimmed)) return 'Please enter a valid email address.';
-    } else {
-      if (trimmed.length < 3) return 'Username must be at least 3 characters.';
+    if (!trimmed.includes('@')) {
+      return 'EchoTutor uses secure email authentication to protect candidate privacy. Please sign in with your registered email address (e.g. candidate@example.com).';
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmed)) {
+      return 'Please enter a valid email address.';
     }
 
     if (!password) return 'Password is required.';
@@ -62,6 +89,19 @@ export const LoginPage: React.FC<LoginPageProps> = ({
       return;
     }
 
+    // Persist or remove remembered email for seamless browser login
+    try {
+      if (rememberMe) {
+        localStorage.setItem('echotutor_remembered_email', identifier.trim());
+        localStorage.setItem('echotutor_remember_me', 'true');
+      } else {
+        localStorage.removeItem('echotutor_remembered_email');
+        localStorage.setItem('echotutor_remember_me', 'false');
+      }
+    } catch {
+      // LocalStorage access fallback
+    }
+
     // Success
     onSuccess();
   };
@@ -76,9 +116,21 @@ export const LoginPage: React.FC<LoginPageProps> = ({
 
       {/* Top Status Header */}
       <div className="w-full max-w-md mb-6 flex items-center justify-between">
-        <span className="text-xs font-mono text-[#9EA6B0] tracking-wider uppercase">
-          ONBOARDING // <span className="text-[#00F0FF] font-bold">CANDIDATE SIGN IN</span>
-        </span>
+        {onNavigateLanding ? (
+          <button
+            type="button"
+            id="login-return-landing-top-btn"
+            onClick={onNavigateLanding}
+            className="text-xs font-mono text-[#9EA6B0] hover:text-[#00F0FF] transition-colors inline-flex items-center gap-1.5 uppercase tracking-wider py-1 focus:outline-none focus:underline"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 text-[#00F0FF]" />
+            <span>Return to Landing Page</span>
+          </button>
+        ) : (
+          <span className="text-xs font-mono text-[#9EA6B0] tracking-wider uppercase">
+            ONBOARDING // <span className="text-[#00F0FF] font-bold">CANDIDATE SIGN IN</span>
+          </span>
+        )}
 
         <span className="text-[11px] font-mono text-[#9EA6B0]">
           SECURITY: <span className="text-[#00F0FF] font-bold">256-BIT TLS</span>
@@ -151,19 +203,22 @@ export const LoginPage: React.FC<LoginPageProps> = ({
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email or Username Input */}
+        <form id="candidate-login-form" name="candidate-login-form" onSubmit={handleSubmit} className="space-y-4">
+          {/* Email Address Input */}
           <div>
-            <label className="block text-xs font-mono uppercase tracking-wider text-[#9EA6B0] mb-1.5">
-              Email Address or Username
+            <label htmlFor="login-email" className="block text-xs font-mono uppercase tracking-wider text-[#9EA6B0] mb-1.5">
+              Email Address
             </label>
             <div className="relative">
               <User className="w-4 h-4 absolute left-3.5 top-3.5 text-[#9EA6B0]/60" />
               <input
-                type="text"
+                type="email"
+                id="login-email"
+                name="email"
+                autoComplete="username email"
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
-                placeholder="candidate@gmail.com or username"
+                placeholder="candidate@gmail.com"
                 className="w-full bg-[#0A0B0D] text-[#FFFFFF] text-sm font-mono placeholder:text-[#9EA6B0]/40 pl-10 pr-4 py-3 rounded-lg border border-white/[0.1] focus:border-[#00F0FF] focus:ring-1 focus:ring-[#00F0FF] focus:outline-none transition-all"
                 disabled={isSubmitting}
                 required
@@ -174,7 +229,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           {/* Password Input */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs font-mono uppercase tracking-wider text-[#9EA6B0]">
+              <label htmlFor="login-password" className="text-xs font-mono uppercase tracking-wider text-[#9EA6B0]">
                 Password
               </label>
               <button
@@ -189,6 +244,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({
               <Lock className="w-4 h-4 absolute left-3.5 top-3.5 text-[#9EA6B0]/60" />
               <input
                 type={showPassword ? 'text' : 'password'}
+                id="login-password"
+                name="password"
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
@@ -246,8 +304,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           </div>
         </form>
 
-        {/* Footer Navigation: Link to Registration */}
-        <div className="mt-6 pt-5 border-t border-white/[0.08] text-center">
+        {/* Footer Navigation: Link to Registration & Landing */}
+        <div className="mt-6 pt-5 border-t border-white/[0.08] text-center space-y-3">
           <p className="text-xs font-mono text-[#9EA6B0]">
             Don't have an account?{' '}
             <button
@@ -258,6 +316,20 @@ export const LoginPage: React.FC<LoginPageProps> = ({
               Create an account →
             </button>
           </p>
+
+          {onNavigateLanding && (
+            <div className="pt-2">
+              <button
+                type="button"
+                id="login-return-landing-bottom-btn"
+                onClick={onNavigateLanding}
+                className="text-xs font-mono text-[#9EA6B0] hover:text-[#00F0FF] transition-colors inline-flex items-center gap-1.5 uppercase tracking-wider py-1 focus:outline-none focus:underline"
+              >
+                <ArrowLeft className="w-3 h-3 text-[#00F0FF]" />
+                <span>← Back to Public Landing Page</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Security Stamp */}

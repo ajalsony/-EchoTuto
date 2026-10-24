@@ -134,30 +134,10 @@ BEGIN
 END;
 $$;
 
--- 7. Secure Username-to-Email Resolution for Login RPC
--- Resolves a username to its corresponding login email without exposing the profiles table
-CREATE OR REPLACE FUNCTION public.get_email_by_username(p_username TEXT)
-RETURNS TEXT
-LANGUAGE plpgsql
-SECURITY DEFINER
-SET search_path = public
-AS $$
-DECLARE
-  v_email TEXT;
-BEGIN
-  IF p_username IS NULL OR TRIM(p_username) = '' THEN
-    RETURN NULL;
-  END IF;
-
-  SELECT email INTO v_email
-  FROM public.profiles
-  WHERE LOWER(username) = LOWER(TRIM(p_username))
-  LIMIT 1;
-
-  RETURN v_email;
-END;
-$$;
+-- 7. Secure Authentication Policy: Native Email Authentication
+-- Username-to-email resolution has been deprecated to eliminate email-enumeration vulnerabilities.
+-- Candidate logins are processed securely via native Supabase email authentication (auth.signInWithPassword).
+DROP FUNCTION IF EXISTS public.get_email_by_username(TEXT);
 
 -- 8. Grant execute permissions to anon and authenticated roles
 GRANT EXECUTE ON FUNCTION public.check_username_available(TEXT) TO anon, authenticated;
-GRANT EXECUTE ON FUNCTION public.get_email_by_username(TEXT) TO anon, authenticated;

@@ -67,17 +67,22 @@ export const Header: React.FC<HeaderProps> = ({
           )}
 
           {isAuthRoute ? (
-            <div className="flex items-center gap-2.5 px-1 -ml-1 text-left min-h-[44px]">
-              <div className="w-7 h-7 rounded bg-[#14181B] border border-white/[0.12] flex items-center justify-center">
-                <Box className="w-4 h-4 text-[#00F0FF]" />
+            <button
+              type="button"
+              onClick={onHome}
+              className="flex items-center gap-2.5 focus:outline-none focus:ring-1 focus:ring-[#00F0FF] rounded px-1 -ml-1 transition-all text-left group min-h-[44px]"
+              title="Return to EchoTutor Landing Page"
+            >
+              <div className="w-7 h-7 rounded bg-[#14181B] border border-white/[0.12] group-hover:border-[#00F0FF]/60 flex items-center justify-center transition-colors">
+                <Box className="w-4 h-4 text-[#00F0FF] transition-transform group-hover:scale-110" />
               </div>
               <div className="flex items-baseline gap-1">
-                <span className="font-anton text-2xl sm:text-[26px] tracking-wide text-[#FFFFFF] uppercase leading-none">
+                <span className="font-anton text-2xl sm:text-[26px] tracking-wide text-[#FFFFFF] uppercase leading-none group-hover:text-[#00F0FF] transition-colors">
                   ECHOTUTOR
                 </span>
                 <span className="font-mono text-[10px] text-[#00F0FF] font-bold">®</span>
               </div>
-            </div>
+            </button>
           ) : (
             <button
               type="button"
@@ -100,9 +105,20 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Right side */}
         {isAuthRoute ? (
-          /* Clean Minimal Header on Auth Routes: Security Protocol Badge */
-          <div className="flex items-center">
-            <span className="text-[10px] font-mono px-2.5 py-1 rounded-md daemon-badge text-[#9EA6B0] border border-white/[0.08]">
+          /* Clean Minimal Header on Auth Routes with Landing Link & Security Badge */
+          <div className="flex items-center gap-2.5">
+            {onHome && (
+              <button
+                type="button"
+                onClick={onHome}
+                className="text-xs font-mono px-3 py-1.5 rounded-lg border transition-all inline-flex items-center gap-1.5 min-h-[36px] bg-[#14181B] border-white/[0.08] text-[#9EA6B0] hover:text-[#FFFFFF] hover:border-[#00F0FF]/50"
+                title="Return to Landing Page"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 text-[#00F0FF]" />
+                <span className="uppercase tracking-wider font-bold">Landing Page</span>
+              </button>
+            )}
+            <span className="hidden sm:inline-flex text-[10px] font-mono px-2.5 py-1 rounded-md daemon-badge text-[#9EA6B0] border border-white/[0.08]">
               SECURITY // <span className="text-[#00F0FF] font-bold">TLS-256</span>
             </span>
           </div>
