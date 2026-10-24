@@ -17,12 +17,14 @@ import {
   Calendar,
   Building,
   ExternalLink,
+  ArrowLeft,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import type { StudentProfileData, ExperienceLevel, EducationLevel } from '../../types';
 
 interface RegisterPageProps {
-  onNavigateLogin: () => void;
+  onNavigateLogin: (email?: string) => void;
+  onNavigateLanding?: () => void;
   onSuccess: (needsVerification: boolean, email: string) => void;
 }
 
@@ -53,6 +55,7 @@ const experienceOptions: { id: ExperienceLevel; label: string }[] = [
 
 export const RegisterPage: React.FC<RegisterPageProps> = ({
   onNavigateLogin,
+  onNavigateLanding,
   onSuccess,
 }) => {
   const { signUp, checkUsernameAvailable, isConfigured } = useAuth();
@@ -215,9 +218,21 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
 
       {/* Top Status Header Bar */}
       <div className="w-full max-w-2xl mb-4 flex items-center justify-between">
-        <span className="text-xs font-mono text-[#9EA6B0] tracking-wider uppercase">
-          ONBOARDING // <span className="text-[#00F0FF] font-bold">STUDENT REGISTRATION</span>
-        </span>
+        {onNavigateLanding ? (
+          <button
+            type="button"
+            id="register-return-landing-top-btn"
+            onClick={onNavigateLanding}
+            className="text-xs font-mono text-[#9EA6B0] hover:text-[#00F0FF] transition-colors inline-flex items-center gap-1.5 uppercase tracking-wider py-1 focus:outline-none focus:underline"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 text-[#00F0FF]" />
+            <span>Return to Landing Page</span>
+          </button>
+        ) : (
+          <span className="text-xs font-mono text-[#9EA6B0] tracking-wider uppercase">
+            ONBOARDING // <span className="text-[#00F0FF] font-bold">STUDENT REGISTRATION</span>
+          </span>
+        )}
 
         <span className="text-[11px] font-mono text-[#9EA6B0]">
           SECURITY: <span className="text-[#00F0FF] font-bold">256-BIT TLS</span>
@@ -309,7 +324,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
               {isExistingAccount && (
                 <button
                   type="button"
-                  onClick={onNavigateLogin}
+                  onClick={() => onNavigateLogin(email.trim())}
                   className="mt-2.5 text-xs font-mono font-bold text-[#00F0FF] hover:underline uppercase tracking-wider inline-flex items-center gap-1"
                 >
                   <span>Proceed to Sign In with this email</span>
@@ -321,7 +336,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
         )}
 
         {/* Registration Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form id="candidate-register-form" name="candidate-register-form" onSubmit={handleSubmit} className="space-y-6">
           {/* SECTION 1: CREDENTIALS & IDENTITY */}
           <div className="space-y-4">
             <div className="flex items-center gap-2 pb-1 border-b border-white/[0.06]">
@@ -334,13 +349,16 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Full Name */}
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#9EA6B0] mb-1.5">
+                <label htmlFor="register-fullname" className="block text-xs font-mono uppercase tracking-wider text-[#9EA6B0] mb-1.5">
                   Full Name <span className="text-[#00F0FF]">*</span>
                 </label>
                 <div className="relative">
                   <User className="w-4 h-4 absolute left-3.5 top-3.5 text-[#9EA6B0]/60" />
                   <input
                     type="text"
+                    id="register-fullname"
+                    name="name"
+                    autoComplete="name"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Alex Vance"
@@ -354,7 +372,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
               {/* Username */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-mono uppercase tracking-wider text-[#9EA6B0]">
+                  <label htmlFor="register-username" className="text-xs font-mono uppercase tracking-wider text-[#9EA6B0]">
                     Username <span className="text-[#00F0FF]">*</span>
                   </label>
                   {/* Status Indicator */}
@@ -379,6 +397,9 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   <span className="absolute left-3.5 top-2.5 text-[#9EA6B0]/60 font-mono text-sm">@</span>
                   <input
                     type="text"
+                    id="register-username"
+                    name="username"
+                    autoComplete="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, ''))}
                     placeholder="alex_vance"
@@ -399,13 +420,16 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
 
             {/* Email Address */}
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#9EA6B0] mb-1.5">
+              <label htmlFor="register-email" className="block text-xs font-mono uppercase tracking-wider text-[#9EA6B0] mb-1.5">
                 Email Address <span className="text-[#00F0FF]">*</span>
               </label>
               <div className="relative">
                 <Mail className="w-4 h-4 absolute left-3.5 top-3.5 text-[#9EA6B0]/60" />
                 <input
                   type="email"
+                  id="register-email"
+                  name="email"
+                  autoComplete="username email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="candidate@gmail.com"
@@ -420,13 +444,16 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Password */}
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#9EA6B0] mb-1.5">
+                <label htmlFor="register-password" className="block text-xs font-mono uppercase tracking-wider text-[#9EA6B0] mb-1.5">
                   Password <span className="text-[#00F0FF]">*</span>
                 </label>
                 <div className="relative">
                   <Lock className="w-4 h-4 absolute left-3.5 top-3.5 text-[#9EA6B0]/60" />
                   <input
                     type={showPassword ? 'text' : 'password'}
+                    id="register-password"
+                    name="password"
+                    autoComplete="new-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••••••"
@@ -447,13 +474,16 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
 
               {/* Confirm Password */}
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#9EA6B0] mb-1.5">
+                <label htmlFor="register-confirm-password" className="block text-xs font-mono uppercase tracking-wider text-[#9EA6B0] mb-1.5">
                   Confirm Password <span className="text-[#00F0FF]">*</span>
                 </label>
                 <div className="relative">
                   <Lock className="w-4 h-4 absolute left-3.5 top-3.5 text-[#9EA6B0]/60" />
                   <input
                     type={showConfirmPassword ? 'text' : 'password'}
+                    id="register-confirm-password"
+                    name="confirmPassword"
+                    autoComplete="new-password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="••••••••••••"
@@ -714,18 +744,32 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
           </div>
         </form>
 
-        {/* Footer Navigation: Link to Login */}
-        <div className="mt-6 pt-5 border-t border-white/[0.08] text-center">
+        {/* Footer Navigation: Link to Login & Landing */}
+        <div className="mt-6 pt-5 border-t border-white/[0.08] text-center space-y-3">
           <p className="text-xs font-mono text-[#9EA6B0]">
             Already registered candidate?{' '}
             <button
               type="button"
-              onClick={onNavigateLogin}
+              onClick={() => onNavigateLogin(email.trim() || undefined)}
               className="text-[#00F0FF] hover:underline font-bold uppercase tracking-wider ml-1 focus:outline-none"
             >
               Sign In →
             </button>
           </p>
+
+          {onNavigateLanding && (
+            <div className="pt-2">
+              <button
+                type="button"
+                id="register-return-landing-bottom-btn"
+                onClick={onNavigateLanding}
+                className="text-xs font-mono text-[#9EA6B0] hover:text-[#00F0FF] transition-colors inline-flex items-center gap-1.5 uppercase tracking-wider py-1 focus:outline-none focus:underline"
+              >
+                <ArrowLeft className="w-3 h-3 text-[#00F0FF]" />
+                <span>← Back to Public Landing Page</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Security Stamp */}

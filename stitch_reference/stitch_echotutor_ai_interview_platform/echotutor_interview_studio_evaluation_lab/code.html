@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Syne:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary": "#00363a", "on-secondary-fixed-variant": "#41474d", "on-primary-container": "#006970", "inverse-on-surface": "#303033", "primary-container": "#00f0ff", "on-secondary": "#2b3136", "on-background": "#e3e2e5", "tertiary": "#daffdd", "surface-container": "#1f2022", "on-error": "#690005", "on-error-container": "#ffdad6", "inverse-primary": "#006970", "on-tertiary": "#003919", "surface-bright": "#38393b", "surface-dim": "#121315", "primary-fixed-dim": "#00dbe9", "primary": "#dbfcff", "outline-variant": "#3b494b", "surface": "#121315", "error-container": "#93000a", "on-secondary-container": "#b0b6bc", "on-surface": "#e3e2e5", "on-primary-fixed-variant": "#004f54", "outline": "#849495", "tertiary-fixed": "#61ff97", "error": "#ffb4ab", "tertiary-fixed-dim": "#00e476", "on-secondary-fixed": "#161c21", "surface-container-lowest": "#0d0e10", "on-tertiary-fixed-variant": "#005227", "surface-container-low": "#1b1c1e", "surface-container-highest": "#343537", "on-primary-fixed": "#002022", "primary-fixed": "#7df4ff", "secondary-fixed": "#dde3ea", "secondary": "#c1c7ce", "surface-variant": "#343537", "on-tertiary-container": "#006d35", "on-tertiary-fixed": "#00210c", "on-surface-variant": "#b9cacb", "surface-tint": "#00dbe9", "surface-container-high": "#292a2c", "secondary-fixed-dim": "#c1c7ce", "background": "#121315", "inverse-surface": "#e3e2e5", "secondary-container": "#41474d", "tertiary-container": "#00f982" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin-tablet": "2rem", "gutter": "1rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "margin": "1rem", "space-sm": "0.5rem", "gutter-desktop": "1.5rem", "space-xl": "2.5rem", "margin-desktop": "3rem" }, "fontFamily": { "body-lg": [ "Inter" ], "label-code": [ "JetBrains Mono" ], "mono-metric": [ "JetBrains Mono" ], "body-md": [ "Inter" ], "headline-md": [ "Syne" ], "headline-lg": [ "Syne" ], "headline-sm": [ "Inter" ], "display-xl-mobile": [ "Syne" ], "body-sm": [ "Inter" ], "display-xl": [ "Syne" ], "headline-lg-mobile": [ "Syne" ], "label-caps": [ "JetBrains Mono" ] }, "fontSize": { "body-lg": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ], "label-code": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" } ], "mono-metric": [ "22px", { "lineHeight": "28px", "letterSpacing": "0.02em", "fontWeight": "700" } ], "body-md": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-lg": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-sm": [ "18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "display-xl-mobile": [ "38px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800" } ], "body-sm": [ "12px", { "lineHeight": "18px", "fontWeight": "400" } ], "display-xl": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "800" } ], "headline-lg-mobile": [ "28px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" } ], "label-caps": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" } ] } } } };</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 left-0 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl border-b border-outline-variant/30 z-50 px-6 flex items-center justify-between"><div class="flex items-center gap-4"><div class="flex items-center gap-2 px-3 py-1 rounded bg-surface-container border border-outline-variant/30"><span class="material-symbols-outlined text-primary-container text-sm animate-pulse">timer</span><span class="font-label-code text-label-code text-on-surface">00:24:18</span></div><div class="flex items-center gap-2"><span class="font-label-code text-label-code text-error-container bg-error/10 border border-error/30 px-2 py-0.5 rounded">HARD</span><span class="font-label-code text-label-code text-on-surface-variant">TRACK: <span class="text-primary font-bold">System Design / Edge Defense</span></span></div></div><div class="flex items-center gap-3"><button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 text-primary transition-all"><span class="material-symbols-outlined text-base">mic</span><span class="font-label-code text-label-code uppercase">Audio Active</span></button><a class="font-label-code text-label-code uppercase tracking-wider px-3 py-1.5 rounded-lg bg-error-container/20 text-error border border-error/40 hover:bg-error-container hover:text-on-error transition-all" data-path="interview-dashboard" href="#">Exit Session</a></div></header><main class="w-full pt-16 flex-1 bg-background"><div class="flex flex-col w-full">
+<!-- Interactive Ambient Noise & Instrument Grid Wrapper -->
+<div class="relative w-full px-4 sm:px-6 lg:px-12 py-6 overflow-hidden">
+<!-- Submerged telemetry radial glow -->
+<div class="absolute top-1/4 left-1/3 -translate-x-1/2 w-[600px] h-[350px] bg-primary-container/5 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+<div class="absolute bottom-10 right-1/4 w-[480px] h-[300px] bg-tertiary-container/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+<!-- 1. STUDIO PROCESS BARREL & TELEMETRY STRIP -->
+<section class="w-full flex flex-col gap-4 mb-8">
+<!-- Diagnostic Sequence Stepper -->
+<div class="w-full bg-surface-container-low/90 backdrop-blur-md rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-lg">
+<div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+<!-- Step 1: Completed -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-high/60 text-secondary">
+<span class="material-symbols-outlined text-tertiary-fixed text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-code text-label-code tracking-wider uppercase text-on-surface-variant">Step 1: Assess</span>
+</div>
+<span class="text-outline-variant font-label-code text-xs px-1">/</span>
+<!-- Step 2: Active Focused Stage -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary-container/15 text-primary shadow-sm ring-0">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span>
+</span>
+<span class="font-label-code text-label-code tracking-widest uppercase font-bold text-primary">Step 2: Diagnose</span>
+</div>
+<span class="text-outline-variant font-label-code text-xs px-1">/</span>
+<!-- Step 3: Up Next -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest/50 text-secondary/60">
+<span class="font-label-code text-label-code tracking-wider text-outline">03</span>
+<span class="font-label-code text-label-code tracking-wider uppercase">Step 3: Teach</span>
+</div>
+<span class="text-outline-variant font-label-code text-xs px-1">/</span>
+<!-- Step 4 -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest/50 text-secondary/60">
+<span class="font-label-code text-label-code tracking-wider text-outline">04</span>
+<span class="font-label-code text-label-code tracking-wider uppercase">Step 4: Verify</span>
+</div>
+</div>
+<!-- Telemetry Badges Strip -->
+<div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-end">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface">
+<span class="w-2 h-2 rounded-full bg-error-container animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Track:</span>
+<span class="font-label-code text-label-code text-primary font-semibold">DISTRIBUTED SYSTEMS // CONCURRENCY</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-error-container/20 text-error">
+<span class="material-symbols-outlined text-sm">local_fire_department</span>
+<span class="font-label-caps text-label-caps font-bold">LVL 2: PRESSURE COOKER</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container text-on-surface">
+<span class="material-symbols-outlined text-primary-fixed-dim text-sm">schedule</span>
+<span class="font-label-code text-label-code font-bold text-on-surface tracking-wider">08:42 REMAINING</span>
+</div>
+<!-- Voice Mode Telemetry Toggle -->
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-bright text-primary-fixed transition-all cursor-pointer" id="voiceToggleBtn">
+<span class="material-symbols-outlined text-sm text-primary-container" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+<span class="font-label-code text-label-code tracking-wide">VOICE EVAL: ACTIVE</span>
+<!-- Live Audio Bars Micro-visualization -->
+<div class="flex items-end gap-0.5 h-3 ml-1">
+<span class="w-0.5 h-1.5 bg-primary-container rounded-full animate-pulse"></span>
+<span class="w-0.5 h-3 bg-primary-container rounded-full animate-bounce"></span>
+<span class="w-0.5 h-2 bg-primary-container rounded-full animate-pulse"></span>
+<span class="w-0.5 h-3.5 bg-primary-container rounded-full animate-bounce"></span>
+</div>
+</button>
+</div>
+</div>
+</section>
+<!-- 2. MAIN PROBLEM STAGE & WORKSPACE GRID (12 Cols Split) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- LEFT REGION: Question Card & Code/Architecture Terminal (7 Cols) -->
+<section class="lg:col-span-7 flex flex-col gap-6">
+<!-- Focused Interview Question Card -->
+<div class="relative bg-surface-container-low rounded-xl p-6 shadow-xl overflow-hidden">
+<div class="absolute -top-12 -right-12 w-32 h-32 bg-primary-container/10 rounded-full blur-2xl"></div>
+<div class="flex items-center justify-between gap-4 mb-4">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-primary font-label-caps text-label-caps">PROMPT #DS-0418</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Runtime Constraints: Sub-10ms SLAs</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>
+<span class="font-label-code text-label-code text-on-surface-variant">Live Recording</span>
+</div>
+</div>
+<!-- Question Prompt Headline -->
+<h1 class="font-headline-sm text-headline-sm text-primary mb-4 leading-snug">
+            How would you design an idempotency key mechanism for a high-throughput payment processing engine to prevent duplicate charges during network timeouts, and how does your architecture prevent race conditions when two identical requests arrive concurrently within 5 milliseconds?
+          </h1>
+<!-- Contextual Taxonomy Tags -->
+<div class="flex flex-wrap gap-2 pt-2">
+<span class="px-2.5 py-1 rounded bg-surface-container text-on-surface font-label-code text-label-code flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-primary-container">lock_clock</span>
+              Distributed Locking
+            </span>
+<span class="px-2.5 py-1 rounded bg-surface-container text-on-surface font-label-code text-label-code flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-tertiary-fixed">database</span>
+              Redis / DynamoDB
+            </span>
+<span class="px-2.5 py-1 rounded bg-surface-container text-on-surface font-label-code text-label-code flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-secondary-fixed">sync_alt</span>
+              Transaction Isolation
+            </span>
+<span class="px-2.5 py-1 rounded bg-surface-container text-on-surface font-label-code text-label-code flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-error">warning</span>
+              Clock Drift Vulnerability
+            </span>
+</div>
+</div>
+<!-- High-Fidelity Typed-Answer IDE & Workspace -->
+<div class="bg-surface-container-lowest rounded-xl shadow-2xl flex flex-col overflow-hidden">
+<!-- Terminal Tab Bar -->
+<div class="bg-surface-container-low px-4 pt-3 flex items-center justify-between gap-4">
+<div class="flex items-center gap-1">
+<button class="px-4 py-2 rounded-t-lg bg-surface-container-lowest text-primary font-label-code text-label-code font-bold flex items-center gap-2 transition-all" id="tabArchitecture">
+<span class="material-symbols-outlined text-sm text-primary-container">account_tree</span>
+                Architecture Breakdown.md
+              </button>
+<button class="px-4 py-2 rounded-t-lg bg-transparent hover:bg-surface-container-low text-secondary font-label-code text-label-code flex items-center gap-2 transition-all" id="tabPseudocode">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">terminal</span>
+                fenced_idempotency.py
+              </button>
+</div>
+<div class="flex items-center gap-3 pb-2 text-on-surface-variant">
+<span class="font-label-code text-label-code">UTF-8</span>
+<span class="font-label-code text-label-code text-tertiary-fixed-dim">● Auto-Saved</span>
+</div>
+</div>
+<!-- Code / Text Area Canvas -->
+<div class="relative p-4 font-label-code text-body-sm leading-relaxed text-on-surface min-h-[380px] flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex gap-3">
+<span class="text-outline-variant select-none w-6 text-right">01</span>
+<p class="text-secondary"><span class="text-primary-container font-bold"># Core Idempotency Guarantee Specification</span></p>
+</div>
+<div class="flex gap-3">
+<span class="text-outline-variant select-none w-6 text-right">02</span>
+<p>1. Client generates UUIDv4 `Idempotency-Key` passed via HTTP header.</p>
+</div>
+<div class="flex gap-3">
+<span class="text-outline-variant select-none w-6 text-right">03</span>
+<p>2. API Gateway validates format and routes to the Payment Orchestration worker.</p>
+</div>
+<div class="flex gap-3">
+<span class="text-outline-variant select-none w-6 text-right">04</span>
+<p>3. Distributed Lock Acquisition:</p>
+</div>
+<div class="flex gap-3">
+<span class="text-outline-variant select-none w-6 text-right">05</span>
+<p class="pl-4 text-tertiary-fixed">`SET idempotency:lock:{idempotency_key} token NX PX 15000`</p>
+</div>
+<div class="flex gap-3">
+<span class="text-outline-variant select-none w-6 text-right">06</span>
+<p class="pl-4 text-on-surface-variant">// If acquisition returns NIL -&gt; Race condition detected, 409 Conflict / Poll status.</p>
+</div>
+<div class="flex gap-3">
+<span class="text-outline-variant select-none w-6 text-right">07</span>
+<p>4. Check persistent state store (PostgreSQL / DynamoDB) for cached settlement payload.</p>
+</div>
+<div class="flex gap-3">
+<span class="text-outline-variant select-none w-6 text-right">08</span>
+<p class="pl-4 text-secondary">If found with state == 'COMPLETED': Replay stored JSON response.</p>
+</div>
+<div class="flex gap-3">
+<span class="text-outline-variant select-none w-6 text-right">09</span>
+<p class="pl-4 text-secondary">If found with state == 'PROCESSING': Block with exponential jitter backoff max 500ms.</p>
+</div>
+<div class="flex gap-3">
+<span class="text-outline-variant select-none w-6 text-right">10</span>
+<p>5. Outgoing Payment Gateway (Stripe/Adyen) invocation with dedup payload token.</p>
+</div>
+<div class="flex gap-3">
+<span class="text-outline-variant select-none w-6 text-right">11</span>
+<p>6. Monotonic fencing token verification before committing settlement record.</p>
+</div>
+</div>
+<!-- Editor Telemetry Footer & Action Tray -->
+<div class="mt-6 pt-3 flex flex-wrap items-center justify-between gap-4 bg-surface-container/60 -mx-4 -mb-4 px-4 py-3">
+<div class="flex items-center gap-4 text-on-surface-variant font-label-code text-label-code">
+<span>WORDS: <strong class="text-on-surface">318</strong></span>
+<span>CHARS: <strong class="text-on-surface">1,942</strong></span>
+<span class="hidden sm:inline">LATENCY: <strong class="text-tertiary-fixed font-bold">14ms (p99)</strong></span>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-3 py-2 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code flex items-center gap-1.5 transition-all">
+<span class="material-symbols-outlined text-sm">mic</span>
+<span class="hidden sm:inline">Record Audio Note</span>
+</button>
+<button class="px-5 py-2 rounded-lg bg-primary-container text-on-primary font-label-code text-label-code font-bold uppercase tracking-wider flex items-center gap-2 hover:opacity-90 transition-all shadow-[0_0_24px_rgba(0,240,255,0.35)] cursor-pointer">
+<span class="material-symbols-outlined text-base">neurology</span>
+                  Evaluate My Answer
+                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- System Architecture Data Flow Vector Diagram (Under 2KB SVG) -->
+<div class="bg-surface-container-low rounded-xl p-5 shadow-lg flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">hub</span>
+              Synthesized Architecture Topology Diagram
+            </span>
+<span class="font-label-code text-label-code text-primary-container font-semibold">Verified Topology Active</span>
+</div>
+<div class="w-full bg-surface-container-lowest/80 rounded-lg p-3 flex items-center justify-center overflow-x-auto">
+<svg class="w-full max-w-xl h-28" fill="none" viewbox="0 0 600 110" xmlns="http://www.w3.org/2000/svg">
+<!-- Edge Connectors -->
+<path class="text-outline-variant" d="M90 55 H170" stroke="currentColor" stroke-dasharray="3 3" stroke-width="2"></path>
+<path class="text-primary-container" d="M250 55 H330" stroke="currentColor" stroke-width="2"></path>
+<path class="text-tertiary-fixed" d="M410 55 H490" stroke="currentColor" stroke-width="2"></path>
+<!-- Node 1: Client Ingress -->
+<rect class="text-outline-variant" fill="#1f2022" height="60" rx="8" stroke="currentColor" stroke-width="1.5" width="80" x="10" y="25"></rect>
+<text fill="#e3e2e5" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="middle" x="50" y="52">Client</text>
+<text fill="#b9cacb" font-family="JetBrains Mono" font-size="9" text-anchor="middle" x="50" y="68">UUID Ingress</text>
+<!-- Node 2: API Gateway / Redis Lock -->
+<rect class="text-primary-container" fill="#1f2022" height="70" rx="8" stroke="currentColor" stroke-width="1.5" width="80" x="170" y="20"></rect>
+<text fill="#dbfcff" font-family="JetBrains Mono" font-size="11" font-weight="700" text-anchor="middle" x="210" y="47">Redis Lock</text>
+<text fill="#00f0ff" font-family="JetBrains Mono" font-size="9" text-anchor="middle" x="210" y="63">SETNX + TTL</text>
+<text fill="#b9cacb" font-family="JetBrains Mono" font-size="8" text-anchor="middle" x="210" y="77">&lt; 2ms Latency</text>
+<!-- Node 3: Payment Orchestrator -->
+<rect class="text-primary-container" fill="#1f2022" height="70" rx="8" stroke="currentColor" stroke-width="1.5" width="80" x="330" y="20"></rect>
+<text fill="#dbfcff" font-family="JetBrains Mono" font-size="11" font-weight="700" text-anchor="middle" x="370" y="47">Worker</text>
+<text fill="#b9cacb" font-family="JetBrains Mono" font-size="9" text-anchor="middle" x="370" y="63">Fencing Gen</text>
+<text fill="#61ff97" font-family="JetBrains Mono" font-size="8" text-anchor="middle" x="370" y="77">Token #1042</text>
+<!-- Node 4: DB Ledger -->
+<rect class="text-tertiary-fixed" fill="#1f2022" height="60" rx="8" stroke="currentColor" stroke-width="1.5" width="90" x="490" y="25"></rect>
+<text fill="#daffdd" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="middle" x="535" y="52">Postgres Ledger</text>
+<text fill="#61ff97" font-family="JetBrains Mono" font-size="9" text-anchor="middle" x="535" y="68">Atomic Upsert</text>
+</svg>
+</div>
+</div>
+</section>
+<!-- RIGHT REGION: AI Evaluation & Diagnostic Lab (5 Cols) -->
+<section class="lg:col-span-5 flex flex-col gap-6">
+<!-- Diagnostic Score Engine HUD -->
+<div class="bg-surface-container-low rounded-xl p-6 shadow-xl relative overflow-hidden">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-primary-container">speed</span>
+              AI Telemetry Metric Hub
+            </span>
+<span class="px-2 py-0.5 rounded bg-error/15 text-error font-label-code text-label-code font-bold">BELOW BENCHMARK</span>
+</div>
+<!-- Circular Metric & Primary Diagnostic Summary -->
+<div class="flex items-center gap-6 pb-6">
+<!-- Inline SVG Gauge Ring -->
+<div class="relative w-28 h-28 flex-shrink-0 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 100 100">
+<!-- Background track -->
+<circle class="text-surface-container-highest" cx="50" cy="50" fill="none" r="42" stroke="currentColor" stroke-width="8"></circle>
+<!-- Value track 72% -->
+<circle class="text-primary-container transition-all duration-1000" cx="50" cy="50" fill="none" r="42" stroke="currentColor" stroke-dasharray="264" stroke-dashoffset="74" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-mono-metric text-mono-metric text-on-surface font-black">72</span>
+<span class="font-label-code text-[10px] text-on-surface-variant">/ 100</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-sm text-headline-sm text-primary">Senior Bar Verdict</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-tight">
+                Solid operational intuition for Redis locking. <span class="text-error font-semibold">Missing critical fencing mechanism</span> to defend against long GC pauses or clock jumps.
+              </p>
+<div class="mt-2 flex items-center gap-2">
+<span class="font-label-code text-label-code text-on-surface-variant">Target Pass Bar:</span>
+<span class="font-label-code text-label-code text-tertiary-fixed font-bold">85 / 100</span>
+</div>
+</div>
+</div>
+<!-- Dimension Breakdown Progression Bars -->
+<div class="space-y-3 pt-4 bg-surface-container/40 -mx-6 px-6 pb-2 rounded-b-lg">
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-code text-label-code text-on-surface">Technical Correctness</span>
+<span class="font-label-code text-label-code font-bold text-primary">80%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 80%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-code text-label-code text-on-surface">System Reasoning</span>
+<span class="font-label-code text-label-code font-bold text-primary">74%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 74%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-code text-label-code text-error">Edge Case Handling (Clock Skew / GC)</span>
+<span class="font-label-code text-label-code font-bold text-error">55%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-error rounded-full" style="width: 55%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-code text-label-code text-on-surface">Clarity &amp; Precision</span>
+<span class="font-label-code text-label-code font-bold text-primary">78%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 78%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Evidence-Based AI Findings (Strengths vs Weaknesses) -->
+<div class="bg-surface-container-low rounded-xl p-5 shadow-xl flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">
+              Diagnostic Audit Trail
+            </span>
+<span class="font-label-code text-label-code text-primary-container">2 Deficits Flagged</span>
+</div>
+<!-- Confirmed Strength -->
+<div class="p-3.5 rounded-lg bg-surface-container-lowest flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary-fixed text-lg mt-0.5">verified</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-label-code text-label-code text-tertiary-fixed font-bold">STRENGTH DETECTED</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+                Correctly utilized Redis <code class="font-label-code text-primary bg-surface-container px-1 py-0.5 rounded text-xs">SETNX</code> with distributed TTL for atomic lock acquisition to neutralize immediate 5ms double-invocation bursts.
+              </p>
+</div>
+</div>
+<!-- Identified Weakness / Deficit -->
+<div class="p-3.5 rounded-lg bg-error-container/15 flex items-start gap-3">
+<span class="material-symbols-outlined text-error text-lg mt-0.5">gpp_maybe</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-label-code text-label-code text-error font-bold tracking-wide">CRITICAL DEFICIT DETECTED</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+                Fails to address clock drift between Redis nodes or client GC pauses. If worker 1 suffers a 16s pause, lock expires; worker 2 acquires the lock, leading to dual writes without a monotonic fencing token.
+              </p>
+</div>
+</div>
+<!-- Actionable Remediation CTA -->
+<button class="w-full py-3 px-4 rounded-lg bg-surface-container-high hover:bg-surface-bright text-primary font-label-code text-label-code font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md group cursor-pointer">
+<span class="material-symbols-outlined text-tertiary-fixed transition-transform group-hover:rotate-45">school</span>
+<span>Fix My Weakness (Launch Micro-Lesson)</span>
+</button>
+</div>
+<!-- 3. LIVE RETRY & VERIFICATION COMPARISON CARD -->
+<div class="bg-surface-container-low rounded-xl p-5 shadow-xl flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-fixed text-base">compare_arrows</span>
+<h3 class="font-label-code text-label-code font-bold text-on-surface uppercase tracking-wider">Historical Delta Verification</h3>
+</div>
+<span class="font-label-caps text-label-caps text-tertiary-fixed bg-tertiary/10 px-2 py-0.5 rounded font-bold">+28 PTS RECOVERY</span>
+</div>
+<!-- Side-by-Side Comparison Container -->
+<div class="grid grid-cols-2 gap-3">
+<!-- Original Attempt -->
+<div class="p-3 rounded-lg bg-surface-container-lowest flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-code text-label-code text-on-surface-variant">Attempt #1</span>
+<span class="font-mono-metric text-base text-error font-bold">64</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                Naive Redis SET without NX TTL guard. High vulnerability to permanent deadlocks upon node crashes.
+              </p>
+<span class="font-label-caps text-[10px] text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">cancel</span> Lock Race Failure
+              </span>
+</div>
+<!-- Remediated Retry -->
+<div class="p-3 rounded-lg bg-surface-container-highest flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-code text-label-code text-tertiary-fixed font-bold">Remediated #2</span>
+<span class="font-mono-metric text-base text-tertiary-fixed font-bold">92</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface line-clamp-3">
+                Clock skew fully addressed with monotonic fencing tokens &amp; optimistic record versioning.
+              </p>
+<span class="font-label-caps text-[10px] text-tertiary-fixed flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span> Verified Improvement
+              </span>
+</div>
+</div>
+<!-- Residual Warning Strip -->
+<div class="flex items-center gap-2 p-2.5 rounded bg-surface-container-lowest text-on-surface-variant">
+<span class="material-symbols-outlined text-xs text-primary-container">info</span>
+<span class="font-label-code text-[11px] leading-tight">Residual note: Consider discussing Adyen idempotency window expiry rules (24hr SLA).</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+<script>
+  // Interactive micro-script for workspace tabs & audio toggle state
+  (function() {
+    const tabArch = document.getElementById('tabArchitecture');
+    const tabCode = document.getElementById('tabPseudocode');
+    const voiceBtn = document.getElementById('voiceToggleBtn');
+
+    if (tabArch && tabCode) {
+      tabArch.addEventListener('click', () => {
+        tabArch.classList.remove('bg-transparent', 'text-secondary');
+        tabArch.classList.add('bg-surface-container-lowest', 'text-primary', 'font-bold');
+        tabCode.classList.remove('bg-surface-container-lowest', 'text-primary', 'font-bold');
+        tabCode.classList.add('bg-transparent', 'text-secondary');
+      });
+
+      tabCode.addEventListener('click', () => {
+        tabCode.classList.remove('bg-transparent', 'text-secondary');
+        tabCode.classList.add('bg-surface-container-lowest', 'text-primary', 'font-bold');
+        tabArch.classList.remove('bg-surface-container-lowest', 'text-primary', 'font-bold');
+        tabArch.classList.add('bg-transparent', 'text-secondary');
+      });
+    }
+
+    if (voiceBtn) {
+      let isListening = true;
+      voiceBtn.addEventListener('click', () => {
+        isListening = !isListening;
+        const textSpan = voiceBtn.querySelector('span:nth-child(2)');
+        if (textSpan) {
+          textSpan.textContent = isListening ? 'VOICE EVAL: ACTIVE' : 'VOICE EVAL: MUTED';
+        }
+        voiceBtn.classList.toggle('opacity-60', !isListening);
+      });
+    }
+  })();
+</script></main></body></html>

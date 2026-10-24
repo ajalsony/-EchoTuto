@@ -17,12 +17,22 @@ export type ScreenView =
   | 'dashboard';
 
 export type MicStatus =
-  | 'idle'
-  | 'requesting'
-  | 'active'
-  | 'denied'
-  | 'missing'
-  | 'unsupported'
+  | 'idle' // Not tested
+  | 'requesting' // Requesting microphone permission
+  | 'testing' // Testing with live audio capture running
+  | 'ready' // Microphone ready (sound activity detected)
+  | 'no-audio' // No audio detected after timeout
+  | 'active' // Microphone active (general ready state)
+  | 'denied' // Permission denied by user or browser
+  | 'missing' // No hardware input device found
+  | 'unsupported' // Browser does not support mediaDevices
+  | 'error'; // Hardware or track initialization error
+
+export type SpeechRecognitionState =
+  | 'ready'
+  | 'listening'
+  | 'processing'
+  | 'completed'
   | 'error';
 
 export interface InterviewTrackInfo {
@@ -93,5 +103,7 @@ export interface InterviewHistoryItem {
   cadenceScore?: number | null;
   defenseScore?: number | null;
   feedbackSummary?: string | null;
+  status?: 'in-progress' | 'completed' | 'abandoned';
+  completedAt?: string | null;
 }
 

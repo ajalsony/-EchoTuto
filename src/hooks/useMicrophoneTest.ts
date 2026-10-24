@@ -6,6 +6,7 @@ interface UseMicrophoneTestReturn {
   audioLevel: number;
   errorMessage: string | null;
   isTesting: boolean;
+  hasDetectedSound: boolean;
   startTest: () => Promise<void>;
   stopTest: () => void;
   resetError: () => void;
@@ -16,21 +17,30 @@ export function useMicrophoneTest(): UseMicrophoneTestReturn {
   const [audioLevel, setAudioLevel] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isTesting, setIsTesting] = useState<boolean>(false);
+  const [hasDetectedSound, setHasDetectedSound] = useState<boolean>(false);
 
   const mediaStreamRef = useRef<MediaStream | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const sourceRef = useRef<MediaStreamAudioSourceNode | null>(null);
   const animationFrameRef = useRef<number | null>(null);
+  const noAudioTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const soundDetectedRef = useRef<boolean>(false);
 
   const cleanupAudio = useCallback(() => {
-    // 1. Cancel RAF polling
+    // 1. Clear timeout
+    if (noAudioTimeoutRef.current) {
+      clearTimeout(noAudioTimeoutRef.current);
+      noAudioTimeoutRef.current = null;
+    }
+
+    // 2. Cancel RAF polling
     if (animationFrameRef.current !== null) {
       cancelAnimationFrame(animationFrameRef.current);
       animationFrameRef.current = null;
     }
 
-    // 2. Disconnect audio graph nodes
+    // 3. Disconnect audio graph nodes
     if (sourceRef.current) {
       try {
         sourceRef.current.disconnect();
@@ -49,7 +59,7 @@ export function useMicrophoneTest(): UseMicrophoneTestReturn {
       analyserRef.current = null;
     }
 
-    // 3. Close AudioContext
+    // 4. Close AudioContext
     if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
       try {
         audioContextRef.current.close();
@@ -59,7 +69,7 @@ export function useMicrophoneTest(): UseMicrophoneTestReturn {
       audioContextRef.current = null;
     }
 
-    // 4. Release all active microphone tracks
+    // 5. Release all active microphone tracks
     if (mediaStreamRef.current) {
       mediaStreamRef.current.getTracks().forEach((track) => {
         try {
@@ -77,13 +87,21 @@ export function useMicrophoneTest(): UseMicrophoneTestReturn {
 
   const stopTest = useCallback(() => {
     cleanupAudio();
-    setMicStatus((prev) => (prev === 'active' || prev === 'requesting' ? 'idle' : prev));
+    // If sound was already verified, remain ready; otherwise return to idle
+    setMicStatus((prev) => {
+      if (prev === 'ready') return 'ready';
+      if (prev === 'testing' || prev === 'requesting') return 'idle';
+      return prev;
+    });
   }, [cleanupAudio]);
 
   const resetError = useCallback(() => {
+    cleanupAudio();
     setErrorMessage(null);
     setMicStatus('idle');
-  }, []);
+    setHasDetectedSound(false);
+    soundDetectedRef.current = false;
+  }, [cleanupAudio]);
 
   const startTest = useCallback(async () => {
     // Check browser mediaDevices support
@@ -103,9 +121,11 @@ export function useMicrophoneTest(): UseMicrophoneTestReturn {
     cleanupAudio();
     setMicStatus('requesting');
     setErrorMessage(null);
+    setHasDetectedSound(false);
+    soundDetectedRef.current = false;
 
     try {
-      // Prompt user for actual microphone stream
+      // Prompt user for actual microphone stream only on explicit action
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
           echoCancellation: true,
@@ -142,6 +162,17 @@ export function useMicrophoneTest(): UseMicrophoneTestReturn {
       source.connect(analyser);
       sourceRef.current = source;
 
+      // Mark testing status (awaiting actual audio input activity)
+      setMicStatus('testing');
+      setIsTesting(true);
+
+      // Start timer: if no sound detected within 5 seconds, notify 'no-audio'
+      noAudioTimeoutRef.current = setTimeout(() => {
+        if (!soundDetectedRef.current) {
+          setMicStatus('no-audio');
+        }
+      }, 5000);
+
       // Processing frequency data for real acoustic levels
       const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
@@ -162,11 +193,21 @@ export function useMicrophoneTest(): UseMicrophoneTestReturn {
         const scaled = Math.min(1, Math.max(0, avg / 120));
 
         setAudioLevel(scaled);
+
+        // Check if genuine audio input activity exceeds baseline threshold
+        if (scaled >= 0.06 && !soundDetectedRef.current) {
+          soundDetectedRef.current = true;
+          setHasDetectedSound(true);
+          setMicStatus('ready');
+          if (noAudioTimeoutRef.current) {
+            clearTimeout(noAudioTimeoutRef.current);
+            noAudioTimeoutRef.current = null;
+          }
+        }
+
         animationFrameRef.current = requestAnimationFrame(updateAudioLevel);
       };
 
-      setMicStatus('active');
-      setIsTesting(true);
       animationFrameRef.current = requestAnimationFrame(updateAudioLevel);
     } catch (err: unknown) {
       cleanupAudio();
@@ -176,7 +217,7 @@ export function useMicrophoneTest(): UseMicrophoneTestReturn {
       if (name === 'NotAllowedError' || name === 'PermissionDeniedError') {
         setMicStatus('denied');
         setErrorMessage(
-          'Microphone permission was denied by browser settings. Please enable microphone permissions, or practice seamlessly in Silent Typed Mode.'
+          'Microphone permission was denied. Please allow microphone access in your browser or continue in Silent Typed Mode.'
         );
       } else if (name === 'NotFoundError' || name === 'DevicesNotFoundError') {
         setMicStatus('missing');
@@ -210,6 +251,7 @@ export function useMicrophoneTest(): UseMicrophoneTestReturn {
     audioLevel,
     errorMessage,
     isTesting,
+    hasDetectedSound,
     startTest,
     stopTest,
     resetError,

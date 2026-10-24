@@ -15,11 +15,45 @@ export interface AIStatus {
   message: string;
 }
 
+export interface QuestionRubricDetail {
+  coreConcepts: string[];
+  supportingConcepts?: string[];
+  acceptableAlternatives?: string[];
+  commonMisconceptions?: string[];
+  expectedReasoning?: string[];
+  excellenceCriteria?: string[];
+}
+
 export interface GeneratedQuestion {
   questionText: string;
   expectedRubric: string[];
+  rubricDetail?: QuestionRubricDetail;
   focusSkill: string;
   targetRoleRelevance: string;
+}
+
+export interface DimensionScores {
+  factualCorrectness: number;
+  conceptCoverage: number;
+  reasoningDepth: number;
+  practicalApplication: number;
+  communicationClarity: number;
+}
+
+export interface DimensionWeights {
+  factualCorrectness: number;
+  conceptCoverage: number;
+  reasoningDepth: number;
+  practicalApplication: number;
+  communicationClarity: number;
+}
+
+export interface EvaluationEvidenceItem {
+  type: 'strength' | 'weakness';
+  quote: string;
+  isVerifiedQuote?: boolean;
+  analysis: string;
+  remediation?: string;
 }
 
 export interface AnswerEvaluation {
@@ -33,6 +67,12 @@ export interface AnswerEvaluation {
   explanationOfMissing: string;
   actionableNextSteps: string[];
   isContentOnly: boolean;
+  dimensionScores?: DimensionScores;
+  dimensionWeights?: DimensionWeights;
+  scoreBreakdown?: string;
+  evidenceItems?: EvaluationEvidenceItem[];
+  confidenceScore?: number;
+  evaluatorNote?: string;
 }
 
 export interface WeaknessLesson {
@@ -140,6 +180,7 @@ export async function generateQuestionApi(params: {
 export async function evaluateAnswerApi(params: {
   questionText: string;
   expectedRubric: string[];
+  rubricDetail?: QuestionRubricDetail;
   answerText: string;
   track: InterviewTrack;
   topic: string;

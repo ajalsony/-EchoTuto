@@ -23,10 +23,14 @@ import type {
   InterviewConfig,
   DifficultyOption,
 } from '../types';
+import { getTotalQuestionsForDifficulty } from '../lib/interviewPersistence';
 
 interface InterviewSetupProps {
   initialTrack?: InterviewTrack;
   initialMode?: PracticeMode;
+  initialDifficulty?: DifficultyLevel;
+  initialTopic?: string;
+  initialCustomTopic?: string;
   onBack: () => void;
   onEnterRoom: (config: InterviewConfig) => void;
 }
@@ -80,24 +84,29 @@ const hrTopics = [
 ];
 
 export const InterviewSetup: React.FC<InterviewSetupProps> = ({
-  initialTrack = 'technical',
-  initialMode = 'voice',
+  initialTrack,
+  initialMode,
+  initialDifficulty,
+  initialTopic,
+  initialCustomTopic,
   onBack,
   onEnterRoom,
 }) => {
-  // 1. Track State (persisted)
+  // 1. Track State (persisted with prop priority)
   const [track, setTrack] = useState<InterviewTrack>(() => {
+    if (initialTrack === 'technical' || initialTrack === 'hr') return initialTrack;
     try {
       const saved = localStorage.getItem(STORAGE_KEY_TRACK);
       if (saved === 'technical' || saved === 'hr') return saved;
     } catch {
       // Fallback
     }
-    return initialTrack;
+    return 'technical';
   });
 
-  // 2. Difficulty State (persisted)
+  // 2. Difficulty State (persisted with prop priority)
   const [difficulty, setDifficulty] = useState<DifficultyLevel>(() => {
+    if (initialDifficulty) return initialDifficulty;
     try {
       const saved = localStorage.getItem(STORAGE_KEY_DIFFICULTY);
       if (saved === 'foundation' || saved === 'pressure-cooker' || saved === 'executive') {
@@ -109,8 +118,9 @@ export const InterviewSetup: React.FC<InterviewSetupProps> = ({
     return 'pressure-cooker';
   });
 
-  // 3. Topic State (persisted)
+  // 3. Topic State (persisted with prop priority)
   const [topic, setTopic] = useState<string>(() => {
+    if (initialTopic) return initialTopic;
     try {
       const saved = localStorage.getItem(STORAGE_KEY_TOPIC);
       if (saved) return saved;
@@ -120,8 +130,9 @@ export const InterviewSetup: React.FC<InterviewSetupProps> = ({
     return 'Data Structures and Algorithms';
   });
 
-  // 4. Custom Topic State (persisted)
+  // 4. Custom Topic State (persisted with prop priority)
   const [customTopic, setCustomTopic] = useState<string>(() => {
+    if (initialCustomTopic !== undefined) return initialCustomTopic;
     try {
       return localStorage.getItem(STORAGE_KEY_CUSTOM_TOPIC) || '';
     } catch {
@@ -129,16 +140,48 @@ export const InterviewSetup: React.FC<InterviewSetupProps> = ({
     }
   });
 
-  // 5. Practice Mode (persisted)
+  // 5. Practice Mode (persisted with prop priority)
   const [mode, setMode] = useState<PracticeMode>(() => {
+    if (initialMode === 'voice' || initialMode === 'typed') return initialMode;
     try {
       const saved = localStorage.getItem(STORAGE_KEY_MODE);
       if (saved === 'voice' || saved === 'typed') return saved;
     } catch {
       // Fallback
     }
-    return initialMode;
+    return 'voice';
   });
+
+  // Synchronize incoming props if changed by caller
+  useEffect(() => {
+    if (initialTrack && initialTrack !== track) {
+      setTrack(initialTrack);
+    }
+  }, [initialTrack]);
+
+  useEffect(() => {
+    if (initialDifficulty && initialDifficulty !== difficulty) {
+      setDifficulty(initialDifficulty);
+    }
+  }, [initialDifficulty]);
+
+  useEffect(() => {
+    if (initialTopic && initialTopic !== topic) {
+      setTopic(initialTopic);
+    }
+  }, [initialTopic]);
+
+  useEffect(() => {
+    if (initialCustomTopic !== undefined && initialCustomTopic !== customTopic) {
+      setCustomTopic(initialCustomTopic);
+    }
+  }, [initialCustomTopic]);
+
+  useEffect(() => {
+    if (initialMode && initialMode !== mode) {
+      setMode(initialMode);
+    }
+  }, [initialMode]);
 
   // Real microphone hook (opt-in only, no auto-request)
   const {
@@ -364,9 +407,14 @@ export const InterviewSetup: React.FC<InterviewSetupProps> = ({
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded daemon-badge font-bold tracking-wider">
-                        {opt.badge}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded daemon-badge font-bold tracking-wider">
+                          {opt.badge}
+                        </span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#00F0FF]/10 border border-[#00F0FF]/30 text-[#00F0FF] font-bold">
+                          {getTotalQuestionsForDifficulty(opt.id)} Questions
+                        </span>
+                      </div>
                       <div
                         className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
                           isSelected
