@@ -800,7 +800,7 @@ export function App() {
           <InterviewRoomPlaceholder
             config={sessionConfig}
             onBackToSetup={() => navigateTo('setup')}
-            onExitHome={() => navigateTo('entry')}
+            onExitHome={() => navigateTo(user ? 'dashboard' : 'login')}
           />
         </main>
       )}
